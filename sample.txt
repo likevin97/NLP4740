@@ -1,0 +1,3 @@
+SAN	FRANCISCO	1	Philadelphia	0
+NNP	NNP	CD	NNP	CD
+0	1	2	3	4
