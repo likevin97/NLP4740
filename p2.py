@@ -120,17 +120,18 @@ def baseline_prediction(training, testing):
     text = []
     pos = []
     index = []
-    bio = []
     counter = 0
     kaggle = initKaggleDict()
     for line in test:
+
+        bio = []
+
         if (counter % 3 == 0):
             text = line.split()
         elif (counter % 3 == 1):
             pos = line.split()
         else:
             index = line.split()
-            bio = []
 
 
             #everything has correct information
@@ -152,10 +153,10 @@ def baseline_prediction(training, testing):
 
             #at the end of this for loop (on a single line) the index of any variable, should correspond to that same index for any other variable
 
-        print ("Tokens: " + str(text))
-
-        print ("BIO: " + str(bio))
-        print ("Indexes: " + str(index))
+        # print ("Tokens: " + str(text))
+        #
+        # print ("BIO: " + str(bio))
+        # print ("Indexes: " + str(index))
 
         for i in range(len(bio)):
             if bio[i] != "O":
@@ -170,7 +171,7 @@ def baseline_prediction(training, testing):
     PER = ""
     LOC = ""
     MISC = ""
-
+    print (kaggle)
     for tag in kaggle:
         for index_ranges in kaggle[tag]:
             index = index_ranges.split()
