@@ -117,22 +117,21 @@ def baseline(ftraining):
 def baseline_prediction(training, testing):
     hash = baseline(training)
     test = open(testing, "r")
-    text = ""
-    pos = ""
-    index = ""
+    text = []
+    pos = []
+    index = []
     bio = []
     counter = 0
     kaggle = initKaggleDict()
     for line in test:
         if (counter % 3 == 0):
             text = line.split()
-            #pos = ""
-            #index = ""
         elif (counter % 3 == 1):
             pos = line.split()
-            #index = ""
         else:
             index = line.split()
+            bio = []
+
 
             #everything has correct information
 
@@ -141,30 +140,29 @@ def baseline_prediction(training, testing):
                     if hash[text[i]] in B_TAG:
                         bio.append(hash[text[i]])
                     elif hash[text[i]] in I_TAG:
-                        if bio[-1][2:] == hash[text[i]][2:] or bio[-1] == hash[text[i]]: #if previous word is part of the entity
+                        if len(bio) == 0 or bio[-1] == "O":
+                            bio.append("O")
+                        elif bio[-1][2:] == hash[text[i]][2:] and i > 0: #if previous word is part of the entity
                             bio.append(hash[text[i]])
                         else:
                             bio.append("O")
                 else:
                     bio.append("O")
+
+
             #at the end of this for loop (on a single line) the index of any variable, should correspond to that same index for any other variable
 
-        #for kaggle
-        print ("hello")
-        print (len(line.split()))
-        print (len(index))
-        print (len(bio))
-        print ("bye")
+        print ("Tokens: " + str(text))
+
+        print ("BIO: " + str(bio))
+        print ("Indexes: " + str(index))
+
         for i in range(len(bio)):
             if bio[i] != "O":
-                #kaggle[bio[i][2:]].append(index[i])
                 if bio[i] in B_TAG:
-                    print (kaggle[bio[i][2:]])
-                    print (index[i])
-                    #kaggle[bio[i][2:]].append(index[i])
+                    kaggle[bio[i][2:]].append(index[i])
                 elif bio[i] in I_TAG:
-                    #kaggle[bio[i][2:]][-1] += " " + str(index[i])
-                    pass
+                    kaggle[bio[i][2:]][-1] += " " + str(index[i])
 
         counter += 1
 
