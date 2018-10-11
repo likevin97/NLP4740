@@ -37,13 +37,13 @@ def lexical_probabilities(lex_dict):
 		total = sum(lex_dict[key].values())
 		for k in lex_dict[key] : #key is a token
 			lex_dict[key][k] /= float(total) 
-			print (lex_dict[key])
-			print (lex_dict[key][k])
+	
+	return lex_prob
+
 def main():
 	
 	lex_dict = lexical_dictonary("sample.txt")
-	lexical_probabilities(lex_dict)
+	lex_dict = lexical_probabilities(lex_dict)
 	#print (lex["B-ORG"])
-	pass
 
 main()
