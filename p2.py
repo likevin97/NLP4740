@@ -37,56 +37,6 @@ def initKaggleDict():
         dict[t] = []
     return dict
 
-
-def common_class(fname):
-    dict = initBIODict()
-
-    counter = 0
-
-    with open(fname) as trainingfile:
-        for line in trainingfile:
-
-            if (counter % 3 == 2):
-                for tag in line.split():
-                    dict[tag] += 1
-            counter += 1
-    return dict
-
-def common_class_prediction(ftraining, ftesting):
-    # predict most common class for everything in testing
-    dict = common_class(ftraining)
-    maxKey = max(dict, key=dict.get)
-
-    validation = open(ftesting, "r")
-    counter = 0
-    correct = 0
-    incorrect = 0
-    for line in validation:
-        if (counter % 3 == 2):
-            for tag in line.split():
-                if tag == maxKey:
-                    correct += 1
-                else:
-                    incorrect += 1
-        counter += 1
-
-    print("Common Class Prediction")
-    print ("Everything was predicted to be the class " + maxKey)
-    if (correct > 0 or incorrect > 0):
-        print ("Accuracy: " + str(float(correct) / (correct + incorrect)))
-
-    '''
-    f_read = open(ftesting, "r")
-    last_line = f_read.readlines()[-1]
-    x = last_line.split()
-    last_word_index = x[-1]
-
-    print ("Common Class Prediction")
-    print ("Type,Prediction")
-    print (maxKey + ",0-" + last_word_index)
-    '''
-
-
 def baseline(ftraining):
     training = open(ftraining, "r")
     text = ""
@@ -156,8 +106,28 @@ def baseline_prediction(training, testing):
                     bio.append("O")
 
             #validation
+            '''
+            #currently does not work. trying to do span level accuracy
+            i = 0
+            correct = False
+            while i < (len(bio)):
+            	if index[i] in B_TAG:
+            		recall_dem += 1
+            		if bio[i] == index[i]:
+            			precision_dem += 1
+            		i+=1
+            		while (index[i] in I_TAG):
+            			if bio[i] == index[i]:
+            				i += 1
+            				correct = True
+            			else:
+            				i += 1
+            				correct = False
+            				break
 
-            for i in range(len(bio)):
+            				'''
+
+            	'''
                 if (bio[i] == index[i]):
                     if (bio[i] != "O"):
                         correct += 1
@@ -165,6 +135,7 @@ def baseline_prediction(training, testing):
                     precision_dem += 1
                 if (index[i] != "O"):
                     recall_dem += 1
+                    '''
 
             #at the end of this for loop (on a single line) the index of any variable, should correspond to that same index for any other variable
 
@@ -250,20 +221,13 @@ def baseline_prediction(training, testing):
 
         # at the end of this for loop (on a single line) the index of any variable, should correspond to that same index for any other variable
 
-
-
 def main():
 
     # if (os.path.isfile('/path/to/file')):
     #     preprocessing("train.txt")
 
-
-    #common_class_prediction("training.txt", "validation.txt")
     #hash = baseline("sample.txt")
     baseline_prediction("train.txt", "validation.txt")
     #print hash
-
-
-
 
 main()
