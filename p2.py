@@ -121,7 +121,13 @@ def baseline_prediction(training, testing):
     pos = []
     index = []
     counter = 0
+    precision_dem = 0
+    recall_dem = 0
     kaggle = initKaggleDict()
+
+    #used for validation only
+    correct = 0
+
     for line in test:
 
         bio = []
@@ -132,7 +138,6 @@ def baseline_prediction(training, testing):
             pos = line.split()
         else:
             index = line.split()
-
 
             #everything has correct information
 
@@ -150,81 +155,100 @@ def baseline_prediction(training, testing):
                 else:
                     bio.append("O")
 
+            #validation
+
+            for i in range(len(bio)):
+                if (bio[i] == index[i]):
+                    if (bio[i] != "O"):
+                        correct += 1
+                if (bio[i] != "O"):
+                    precision_dem += 1
+                if (index[i] != "O"):
+                    recall_dem += 1
 
             #at the end of this for loop (on a single line) the index of any variable, should correspond to that same index for any other variable
 
-        # print ("Tokens: " + str(text))
-        #
-        # print ("BIO: " + str(bio))
-        # print ("Indexes: " + str(index))
 
-        for i in range(len(bio)):
-            if bio[i] != "O":
-                if bio[i] in B_TAG:
-                    kaggle[bio[i][2:]].append(index[i])
-                elif bio[i] in I_TAG:
-                    kaggle[bio[i][2:]][-1] += " " + str(index[i])
+        # for i in range(len(bio)):
+        #     if bio[i] != "O":
+        #         if bio[i] in B_TAG:
+        #             kaggle[bio[i][2:]].append(index[i])
+        #         elif bio[i] in I_TAG:
+        #             kaggle[bio[i][2:]][-1] += " " + str(index[i])
 
         counter += 1
 
-    ORG = ""
-    PER = ""
-    LOC = ""
-    MISC = ""
-    print (kaggle)
-    for tag in kaggle:
-        for index_ranges in kaggle[tag]:
-            index = index_ranges.split()
-            b_index = index[0]
-            e_index = index[-1]
-            if tag == "ORG":
-                if b_index != e_index:
-                    ORG += " "
-                    ORG += str(b_index) + "-" + str(e_index)
-                else:
-                    ORG += " "
-                    ORG += str(b_index)
-            elif tag == "PER":
-                if b_index != e_index:
-                    PER += " "
-                    PER += str(b_index) + "-" + str(e_index)
-                else:
-                    PER += " "
-                    PER += str(b_index)
-            elif tag == "LOC":
-                if b_index != e_index:
-                    LOC += " "
-                    LOC += str(b_index) + "-" + str(e_index)
-                else:
-                    LOC += " "
-                    LOC += str(b_index)
-            elif tag == "MISC":
-                if b_index != e_index:
-                    MISC += " "
-                    MISC += str(b_index) + "-" + str(e_index)
-                else:
-                    MISC += " "
-                    MISC += str(b_index)
+        #FOR VALIDATION
 
-    print ("Type,Prediction")
-    results = [PER,LOC,ORG,MISC]
-    print ("PER," + PER)
-    print("LOC, " + LOC)
-    print("ORG," + ORG)
-    print("MISC," + MISC)
-
-
-    with open('baselineKaggle.csv', "w") as csvFile:
-        writer = csv.writer(csvFile)
-        writer.writerow(['Type', 'Prediction'])
-        val = 0
-        temp = ["PER", "LOC", "ORG", "MISC"]
-        while val < 4:
-            writer.writerow((temp[val], results[val]))
-            val += 1
+    if precision_dem != 0:
+        print ("Precision: " + str(float(correct) / precision_dem))
+    if recall_dem != 0:
+        print ("Recall: " + str(float(correct) / recall_dem))
+    if precision_dem != 0 and recall_dem != 0:
+        print("Fscore: " + str((2*(float(correct) / precision_dem)*(float(correct) / recall_dem)) / ((float(correct) / precision_dem)+(float(correct) / recall_dem))))
 
 
 
+    #FOR TESTING
+
+    #
+    # ORG = ""
+    # PER = ""
+    # LOC = ""
+    # MISC = ""
+    # # print (kaggle)
+    # for tag in kaggle:
+    #     for index_ranges in kaggle[tag]:
+    #         index = index_ranges.split()
+    #         b_index = index[0]
+    #         e_index = index[-1]
+    #         if tag == "ORG":
+    #             if b_index != e_index:
+    #                 ORG += " "
+    #                 ORG += str(b_index) + "-" + str(e_index)
+    #             else:
+    #                 ORG += " "
+    #                 ORG += str(b_index)
+    #         elif tag == "PER":
+    #             if b_index != e_index:
+    #                 PER += " "
+    #                 PER += str(b_index) + "-" + str(e_index)
+    #             else:
+    #                 PER += " "
+    #                 PER += str(b_index)
+    #         elif tag == "LOC":
+    #             if b_index != e_index:
+    #                 LOC += " "
+    #                 LOC += str(b_index) + "-" + str(e_index)
+    #             else:
+    #                 LOC += " "
+    #                 LOC += str(b_index)
+    #         elif tag == "MISC":
+    #             if b_index != e_index:
+    #                 MISC += " "
+    #                 MISC += str(b_index) + "-" + str(e_index)
+    #             else:
+    #                 MISC += " "
+    #                 MISC += str(b_index)
+
+    #print ("Type,Prediction")
+    #results = [PER,LOC,ORG,MISC]
+    #print ("PER," + PER)
+    #print("LOC, " + LOC)
+    #print("ORG," + ORG)
+    #print("MISC," + MISC)
+
+
+    # with open('baselineKaggle.csv', "w") as csvFile:
+    #     writer = csv.writer(csvFile)
+    #     writer.writerow(['Type', 'Prediction'])
+    #     val = 0
+    #     temp = ["PER", "LOC", "ORG", "MISC"]
+    #     while val < 4:
+    #         writer.writerow((temp[val], results[val]))
+    #         val += 1
+
+        # at the end of this for loop (on a single line) the index of any variable, should correspond to that same index for any other variable
 
 
 
@@ -236,7 +260,7 @@ def main():
 
     #common_class_prediction("training.txt", "validation.txt")
     #hash = baseline("sample.txt")
-    baseline_prediction("train.txt", "test.txt")
+    baseline_prediction("train.txt", "validation.txt")
     #print hash
 
 
