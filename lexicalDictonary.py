@@ -4,7 +4,7 @@ from string import whitespace
 import csv
 from collections import defaultdict
 
-def lexical_probabilities(fname):
+def lexical_dictonary(fname):
 	train = open(fname, "r")
 	lex_dict = defaultdict(lambda: defaultdict(int))
 
@@ -30,12 +30,20 @@ def lexical_probabilities(fname):
 
 	return lex_dict
 
+def lexical_probabilities(lex_dict):
+	lex_prob = defaultdict(lambda: defaultdict(int))
 
-
+	for key in lex_dict.keys(): #key is B-ORG
+		total = sum(lex_dict[key].values())
+		for k in lex_dict[key] : #key is a token
+			lex_dict[key][k] /= float(total) 
+			print (lex_dict[key])
+			print (lex_dict[key][k])
 def main():
 	
-	lex = lexical_probabilities("sample.txt")
-	print (lex["B-ORG"])
+	lex_dict = lexical_dictonary("sample.txt")
+	lexical_probabilities(lex_dict)
+	#print (lex["B-ORG"])
 	pass
 
 main()
