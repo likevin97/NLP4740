@@ -30,14 +30,14 @@ def transition_probabilities(trans_counts):
     return trans_probs
 
 
-def main():
+# def main():
 
-    print ("Dictionary Output: ")
-    transition_counts_output = transition_counts("sample.txt")
+#     #print ("Dictionary Output: ")
+#     transition_counts_output = transition_counts("sample.txt")
 
-    transition_prob_output = transition_probabilities(transition_counts_output)
+#     transition_prob_output = transition_probabilities(transition_counts_output)
 
-    print ("End debug mode")
+#     #print ("End debug mode")
 
 
-main()
+# main()

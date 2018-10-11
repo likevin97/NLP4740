@@ -31,19 +31,18 @@ def lexical_dictonary(fname):
 	return lex_dict
 
 def lexical_probabilities(lex_dict):
-	lex_prob = defaultdict(lambda: defaultdict(int))
+	lex_prob = lex_dict
 
-	for key in lex_dict.keys(): #key is B-ORG
-		total = sum(lex_dict[key].values())
-		for k in lex_dict[key] : #key is a token
-			lex_dict[key][k] /= float(total) 
+	for key in lex_prob.keys(): #key is B-ORG
+		total = sum(lex_prob[key].values())
+		for k in lex_prob[key] : #key is a token
+			lex_prob[key][k] /= float(total) 
 	
 	return lex_prob
 
-def main():
+# def main():
 	
-	lex_dict = lexical_dictonary("sample.txt")
-	lex_dict = lexical_probabilities(lex_dict)
-	#print (lex["B-ORG"])
+# 	lex_dict = lexical_dictonary("sample.txt")
+# 	lex_prob_dict = lexical_probabilities(lex_dict)
 
-main()
+# main()

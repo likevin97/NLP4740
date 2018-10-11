@@ -221,13 +221,13 @@ def baseline_prediction(training, testing):
 
         # at the end of this for loop (on a single line) the index of any variable, should correspond to that same index for any other variable
 
-def main():
+# def main():
 
-    # if (os.path.isfile('/path/to/file')):
-    #     preprocessing("train.txt")
+#     # if (os.path.isfile('/path/to/file')):
+#     #     preprocessing("train.txt")
 
-    #hash = baseline("sample.txt")
-    baseline_prediction("train.txt", "validation.txt")
-    #print hash
+#     #hash = baseline("sample.txt")
+#     baseline_prediction("train.txt", "validation.txt")
+#     #print hash
 
-main()
+# main()
