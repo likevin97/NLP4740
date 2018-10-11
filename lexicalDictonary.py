@@ -20,12 +20,9 @@ def lexical_dictonary(fname):
 			pos = line.split()
 		if counter %3 == 2:
 			bio = line.split()
-
 			#at this point, tokens, pos, and bio all have the same length
 			for tag in range(len(bio)):
-				if bio[tag] != "O":
-					#print (bio[tag][:2])
-					lex_dict[bio[tag]][tokens[tag]] += 1
+				lex_dict[bio[tag]][tokens[tag]] += 1
 		counter +=1
 
 	return lex_dict
@@ -42,7 +39,8 @@ def lexical_probabilities(lex_dict):
 
 # def main():
 	
-# 	lex_dict = lexical_dictonary("sample.txt")
+# 	lex_dict = lexical_dictonary("training.txt")
 # 	lex_prob_dict = lexical_probabilities(lex_dict)
+
 
 # main()

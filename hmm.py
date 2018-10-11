@@ -30,20 +30,9 @@ def startToTagDictionary(filename):
 def hmm_initialize(start, line, lex):
 	#LINE IS ALREADY SPLIT. IS AN ARRAY
 
-	#score = [][]
-	#backpointer = [][]
-
-	#score = defaultdict(lambda: defaultdict(float))
-	print(line[0])
-	print (len(line))
-
-	score = [[0.0 for x in range(len(TAGS))] for y in range(len(line))]
-	backpointer = [[0.0 for x in range(len(TAGS))] for y in range(len(line))]
+	score = [[0.0 for y in range(len(line))] for x in range(len(TAGS))]
+	backpointer = [[0.0 for y in range(len(line))] for x in range(len(TAGS))]
 	for i in range(len(TAGS)):
-		print ("EVERYONE SUCKS")
-		print (float(start[TAGS[i]]))
-		print (float(lex[TAGS[i]][line[0]]))
-		print ("I HATE EVERYONE")
 		score[i][0] = float(start[TAGS[i]]) * float(lex[TAGS[i]][line[0]])
 		backpointer[i][0] = 0
 	return score, backpointer
@@ -65,9 +54,6 @@ def hmm(fname,lex, transition, start):
 	pos = []
 	index = [] #index for testing, or correct bio for validation
 
-	#score= [][]
-	#backpointer = [][]
-
 	counter = 0
 	for line in test:
 		if counter % 3 == 0:
@@ -82,8 +68,6 @@ def hmm(fname,lex, transition, start):
 		counter +=1
 
 
-	
-
 def main():
 	transition_dict = transition_counts("training.txt")
 	transition_probs = transition_probabilities(transition_dict)
@@ -93,7 +77,7 @@ def main():
 
 	start_prob = startToTagDictionary("training.txt")
 
-	line = "played	on	Monday"
+	line = "played on Monday"
 	line = line.split()
 
 	score, backpointer = hmm_initialize(start_prob, line, lex_prob_dict)
