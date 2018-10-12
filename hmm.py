@@ -42,10 +42,13 @@ def hmm_iteration(score, backpointer, line, transition, lex):
 	for token in range(1,len(line)): #index of 1 represents the 2nd word
 		for i in range(len(TAGS)):
 			max_score = 0
+			max_index = 0
 			for j in range(len(TAGS)):
-				s = score[j][token-1]
+				s = score[j][token-1] * transition[TAGS[i]][TAGS[j]] * lex[TAGS[j]][line[token]]
 				if s > max_score:
 					max_score = s
+					max_index = j
+			backpointer[i][token] = j
 			#score[TAGS[i]][token] = max_score * transition[]
 
 def hmm(fname,lex, transition, start):
@@ -69,27 +72,19 @@ def hmm(fname,lex, transition, start):
 
 
 def main():
-	transition_dict = transition_counts("training.txt")
+	transition_dict = transition_counts("sample.txt")
 	transition_probs = transition_probabilities(transition_dict)
 
-	lex_dict = lexical_dictonary("training.txt")
+	lex_dict = lexical_dictonary("sample.txt")
 	lex_prob_dict = lexical_probabilities(lex_dict)
 
-	start_prob = startToTagDictionary("training.txt")
+	start_prob = startToTagDictionary("sample.txt")
 
-	line = "played on Monday"
+	line = "SAN	FRANCISCO	1"
 	line = line.split()
 
 	score, backpointer = hmm_initialize(start_prob, line, lex_prob_dict)
-
-	#print (lex_prob_dict)
-	#print ("======")
-
-	print (start_prob)
-	print ("========")
-
-	print (score)
-	print ("=======")
+	hmm_iteration(score, backpointer, line, transition_probs, lex_prob_dict)
 	print (backpointer)
 
 	#hmm("sample.txt", lex_dict, transition_dict)
