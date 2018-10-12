@@ -27,6 +27,20 @@ def startToTagDictionary(filename):
 
     return start_counts
 
+def indexToBIOTag(backpointer):
+
+	newBackpointer = [[0.0 for y in range(len(backpointer[0]))] for x in range(len(backpointer))]
+
+	for outerIndex in range(len(backpointer)):
+		for innerIndex in range(len(backpointer[0])):
+			tagIndex = backpointer[outerIndex][innerIndex]
+			if (tagIndex == -1):
+				newBackpointer[outerIndex][innerIndex] = "Start"
+			else:
+				newBackpointer[outerIndex][innerIndex] = TAGS[tagIndex]
+
+	return newBackpointer
+
 def hmm_initialize(start, line, lex):
 	#LINE IS ALREADY SPLIT. IS AN ARRAY
 
@@ -47,13 +61,38 @@ def hmm_iteration(score, backpointer, line, transition, lex):
 				s = score[j][token-1] * transition[TAGS[j]][TAGS[i]]
 				if s > max_score:
 					max_score = s
-					score[i][token] = max_score *  lex[TAGS[i]][line[token]]
 					max_index = j
+			score[i][token] = max_score *  lex[TAGS[i]][line[token]]
 			backpointer[i][token] = max_index
 			#score[TAGS[i]][token] = max_score * transition[]
 
-def hmm(fname,lex, transition, start):
-	test = open(fname, "r")
+def hmm_identify_sequence(score, backpointer, line):
+	max_array = []
+	max_index = 0
+	max_score = 0
+	for i in range(len(TAGS)): #this is only for the last token (aka word n)
+		s = score[i][len(line)-1]
+		if s > max_score:
+			max_score = s
+			max_index = i
+
+	max_array.insert(0,max_index)
+
+	for i in range(len(line)-2, -1, -1): #this will do all the other words
+		max_array.insert(0, backpointer[max_array[0]][i+1])
+
+	return max_array
+
+
+def hmm(trainingfile, testfile):
+	transition_dict = transition_counts(trainingfile)
+	transition_probs = transition_probabilities(transition_dict)
+	lex_dict = lexical_dictonary(trainingfile)
+	lex_prob_dict = lexical_probabilities(lex_dict)
+
+	start_prob = startToTagDictionary(trainingfile)
+
+	test = open(testfile, "r")
 	tokens = []
 	pos = []
 	index = [] #index for testing, or correct bio for validation
@@ -67,27 +106,42 @@ def hmm(fname,lex, transition, start):
 		if counter %3 == 2:
 			index = line.split()
 
-			score,backpointer = hmm_initialize(start, tokens, lex)
+			score, backpointer = hmm_initialize(start_prob, tokens, lex_prob_dict)
+			hmm_iteration(score, backpointer, tokens, transition_probs, lex_prob_dict)
+			max_array = hmm_identify_sequence(score, backpointer, tokens)
 
 		counter +=1
 
+	return max_array
+
+
+def convertArrayToBIOTags(array):
+	new_array = [0 for i in  range(len(array))]
+	for i in range(len(array)):
+		new_array[i] = TAGS[array[i]]
+
+	return new_array
+
 
 def main():
-	transition_dict = transition_counts("sample.txt")
-	transition_probs = transition_probabilities(transition_dict)
+	# transition_dict = transition_counts("training.txt")
+	# transition_probs = transition_probabilities(transition_dict)
+	# lex_dict = lexical_dictonary("training.txt")
+	# lex_prob_dict = lexical_probabilities(lex_dict)
 
-	lex_dict = lexical_dictonary("sample.txt")
-	lex_prob_dict = lexical_probabilities(lex_dict)
+	# start_prob = startToTagDictionary("training.txt")
 
-	start_prob = startToTagDictionary("sample.txt")
 
-	line = "SAN	FRANCISCO	1	Philadelphia	0"
-	line = line.split()
 
-	score, backpointer = hmm_initialize(start_prob, line, lex_prob_dict)
-	hmm_iteration(score, backpointer, line, transition_probs, lex_prob_dict)
-	print (backpointer)
+	#score, backpointer = hmm_initialize(start_prob, line, lex_prob_dict)
+	#hmm_iteration(score, backpointer, line, transition_probs, lex_prob_dict)
+	
+	#backpointer_with_tags = indexToBIOTag(backpointer)
+	#print (backpointer_with_tags)
 
-	#hmm("sample.txt", lex_dict, transition_dict)
+	#max_array = hmm_identify_sequence(score, backpointer, line)
+
+	max_array = hmm("training.txt","sample.txt")
+	print convertArrayToBIOTags(max_array)
 
 main()
