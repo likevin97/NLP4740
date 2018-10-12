@@ -123,25 +123,25 @@ def convertArrayToBIOTags(array):
 	return new_array
 
 
-def main():
-	# transition_dict = transition_counts("training.txt")
-	# transition_probs = transition_probabilities(transition_dict)
-	# lex_dict = lexical_dictonary("training.txt")
-	# lex_prob_dict = lexical_probabilities(lex_dict)
+# def main():
+# 	# transition_dict = transition_counts("training.txt")
+# 	# transition_probs = transition_probabilities(transition_dict)
+# 	# lex_dict = lexical_dictonary("training.txt")
+# 	# lex_prob_dict = lexical_probabilities(lex_dict)
 
-	# start_prob = startToTagDictionary("training.txt")
+# 	# start_prob = startToTagDictionary("training.txt")
 
 
 
-	#score, backpointer = hmm_initialize(start_prob, line, lex_prob_dict)
-	#hmm_iteration(score, backpointer, line, transition_probs, lex_prob_dict)
+# 	#score, backpointer = hmm_initialize(start_prob, line, lex_prob_dict)
+# 	#hmm_iteration(score, backpointer, line, transition_probs, lex_prob_dict)
 	
-	#backpointer_with_tags = indexToBIOTag(backpointer)
-	#print (backpointer_with_tags)
+# 	#backpointer_with_tags = indexToBIOTag(backpointer)
+# 	#print (backpointer_with_tags)
 
-	#max_array = hmm_identify_sequence(score, backpointer, line)
+# 	#max_array = hmm_identify_sequence(score, backpointer, line)
 
-	max_array = hmm("training.txt","sample.txt")
-	print convertArrayToBIOTags(max_array)
+# 	max_array = hmm("training.txt","sample.txt")
+# 	print convertArrayToBIOTags(max_array)
 
-main()
+# main()
