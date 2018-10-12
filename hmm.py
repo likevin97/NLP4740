@@ -34,7 +34,7 @@ def hmm_initialize(start, line, lex):
 	backpointer = [[0.0 for y in range(len(line))] for x in range(len(TAGS))]
 	for i in range(len(TAGS)):
 		score[i][0] = float(start[TAGS[i]]) * float(lex[TAGS[i]][line[0]])
-		backpointer[i][0] = 0
+		backpointer[i][0] = -1
 	return score, backpointer
 	
 
@@ -44,11 +44,12 @@ def hmm_iteration(score, backpointer, line, transition, lex):
 			max_score = 0
 			max_index = 0
 			for j in range(len(TAGS)):
-				s = score[j][token-1] * transition[TAGS[i]][TAGS[j]] * lex[TAGS[j]][line[token]]
+				s = score[j][token-1] * transition[TAGS[j]][TAGS[i]]
 				if s > max_score:
 					max_score = s
+					score[i][token] = max_score *  lex[TAGS[i]][line[token]]
 					max_index = j
-			backpointer[i][token] = j
+			backpointer[i][token] = max_index
 			#score[TAGS[i]][token] = max_score * transition[]
 
 def hmm(fname,lex, transition, start):
@@ -80,7 +81,7 @@ def main():
 
 	start_prob = startToTagDictionary("sample.txt")
 
-	line = "SAN	FRANCISCO	1"
+	line = "SAN	FRANCISCO	1	Philadelphia	0"
 	line = line.split()
 
 	score, backpointer = hmm_initialize(start_prob, line, lex_prob_dict)
