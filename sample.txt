@@ -1,4 +1,4 @@
-SAN	FRANCISCO	1	Philadelphia	0
+SAN	AFK	1	Philadelphia	0
 NNP	NNP	CD	NNP	CD
 B-ORG	I-ORG	O	B-ORG	O
 Auxerre	0	Marseille	0	.

@@ -6,7 +6,7 @@ from collections import defaultdict
 from tagToTag import *
 from lexicalDictonary import *
 
-TAGS = ["B-PER", "B-LOC", "B-ORG", "B-MISC", "I-PER", "I-LOC", "I-ORG", "I-MISC" ,"O"]
+TAGS = ["O", "B-PER", "B-LOC", "B-ORG", "B-MISC", "I-PER", "I-LOC", "I-ORG", "I-MISC"]
 
 def startToTagDictionary(filename):
     train = open(filename, "r")
@@ -62,7 +62,10 @@ def hmm_iteration(score, backpointer, line, transition, lex):
 				if s > max_score:
 					max_score = s
 					max_index = j
-			score[i][token] = max_score *  lex[TAGS[i]][line[token]]
+			if (lex[TAGS[i]][line[token]] == 0):
+				score[i][token] = transition[backpointer[i][token-1]][TAGS[i]]
+			else:
+				score[i][token] = max_score * lex[TAGS[i]][line[token]]
 			backpointer[i][token] = max_index
 			#score[TAGS[i]][token] = max_score * transition[]
 
@@ -132,25 +135,30 @@ def convertArrayToBIOTags(array):
 	return new_array
 
 
-#def main():
-	# transition_dict = transition_counts("training.txt")
-	# transition_probs = transition_probabilities(transition_dict)
-	# lex_dict = lexical_dictonary("training.txt")
-	# lex_prob_dict = lexical_probabilities(lex_dict)
+def main():
+# 	# transition_dict = transition_counts("training.txt")
+# 	# transition_probs = transition_probabilities(transition_dict)
+# 	# lex_dict = lexical_dictonary("training.txt")
+# 	# lex_prob_dict = lexical_probabilities(lex_dict)
+#
+# 	# start_prob = startToTagDictionary("training.txt")
+#
+#
+#
+# 	#score, backpointer = hmm_initialize(start_prob, line, lex_prob_dict)
+# 	#hmm_iteration(score, backpointer, line, transition_probs, lex_prob_dict)
+#
+# 	#backpointer_with_tags = indexToBIOTag(backpointer)
+# 	#print (backpointer_with_tags)
+#
+# 	#max_array = hmm_identify_sequence(score, backpointer, line)
+#
+	max_array = hmm("training.txt","sample.txt")
 
-	# start_prob = startToTagDictionary("training.txt")
+	print ("HMM Predictions: ")
 
-
-
-	#score, backpointer = hmm_initialize(start_prob, line, lex_prob_dict)
-	#hmm_iteration(score, backpointer, line, transition_probs, lex_prob_dict)
-	
-	#backpointer_with_tags = indexToBIOTag(backpointer)
-	#print (backpointer_with_tags)
-
-	#max_array = hmm_identify_sequence(score, backpointer, line)
-
-	#max_array = hmm("training.txt","sample.txt")
-	#print convertArrayToBIOTags(max_array)
-
-#main()
+	print convertArrayToBIOTags(max_array)
+#
+# 	print ("--------")
+#
+main()
