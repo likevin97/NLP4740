@@ -274,33 +274,17 @@ def hmm_unsmoothed_prediction(training, testing):
             b_index = index[0]
             e_index = index[-1]
             if tag == "ORG":
-                if b_index != e_index:
-                    ORG += " "
-                    ORG += str(b_index) + "-" + str(e_index)
-                else:
-                    ORG += " "
-                    ORG += str(b_index)
+                ORG += " "
+                ORG += str(b_index) + "-" + str(e_index)
             elif tag == "PER":
-                if b_index != e_index:
-                    PER += " "
-                    PER += str(b_index) + "-" + str(e_index)
-                else:
-                    PER += " "
-                    PER += str(b_index)
+                PER += " "
+                PER += str(b_index) + "-" + str(e_index)
             elif tag == "LOC":
-                if b_index != e_index:
-                    LOC += " "
-                    LOC += str(b_index) + "-" + str(e_index)
-                else:
-                    LOC += " "
-                    LOC += str(b_index)
+                LOC += " "
+                LOC += str(b_index) + "-" + str(e_index)
             elif tag == "MISC":
-                if b_index != e_index:
-                    MISC += " "
-                    MISC += str(b_index) + "-" + str(e_index)
-                else:
-                    MISC += " "
-                    MISC += str(b_index)
+                MISC += " "
+                MISC += str(b_index) + "-" + str(e_index)
 
     print ("Type,Prediction")
 
@@ -324,23 +308,23 @@ def hmm_unsmoothed_prediction(training, testing):
         # at the end of this for loop (on a single line) the index of any variable, should correspond to that same index for any other variable
 
 
-# def main():
-#
-#     # if (os.path.isfile('/path/to/file')):
-#     #     preprocessing("train.txt")
-#
-#     # hash = baseline("sample_test.txt")
-#     #hmm_unsmoothed_prediction("train.txt", "test.txt")
-#
-#
-#     # print ("Kaggle Hash")
-#     #
-#     # print hash
-#     #
-#     # print ("--------------")
-#     #
-#     # max_array = hmm("training.txt", "test.txt")
-#     # print convertArrayToBIOTags(max_array)
-#
-#
-# main()
+def main():
+
+    # if (os.path.isfile('/path/to/file')):
+    #     preprocessing("train.txt")
+
+    # hash = baseline("sample_test.txt")
+    hmm_unsmoothed_prediction("training.txt", "test.txt")
+
+
+    # print ("Kaggle Hash")
+    #
+    # print hash
+    #
+    # print ("--------------")
+    #
+    # max_array = hmm("training.txt", "test.txt")
+    # print convertArrayToBIOTags(max_array)
+
+
+main()

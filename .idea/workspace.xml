@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b26b0bf0-2deb-49b6-8821-90a74436f9c1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/viterbi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hmm.py" beforeDir="false" afterPath="$PROJECT_DIR$/hmm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hmmUnsmoothedKaggle.csv" beforeDir="false" afterPath="$PROJECT_DIR$/hmmUnsmoothedKaggle.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexicalDictonary.py" beforeDir="false" afterPath="$PROJECT_DIR$/lexicalDictonary.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/memm.py" beforeDir="false" afterPath="$PROJECT_DIR$/memm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/p2.py" beforeDir="false" afterPath="$PROJECT_DIR$/p2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sample.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sample_test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sample_test.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.txt" beforeDir="false" afterPath="$PROJECT_DIR$/train.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,12 +25,12 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/p2.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="-521">
-                    <caret line="35" column="16" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="16" />
+                  <state relative-caret-position="347">
+                    <caret line="314" lean-forward="true" selection-start-line="314" selection-end-line="314" />
                     <folding>
                       <element signature="e#0#9#0" expanded="true" />
-                      <marker date="1540179589000" expanded="true" signature="808:921" ph="..." />
-                      <marker date="1540179589000" expanded="true" signature="8804:8813" ph="..." />
+                      <marker date="1540191823000" expanded="true" signature="808:921" ph="..." />
+                      <marker date="1540191823000" expanded="true" signature="8240:8246" ph="..." />
                     </folding>
                   </state>
                 </provider>
@@ -52,24 +52,24 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="8" />
+          <entry key="py" value="9" />
           <entry key="txt" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="8" />
+          <entry key="Python" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="15815" />
+          <entry key="py" value="16210" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="15815" />
+          <entry key="Python" value="16210" />
         </counts>
       </usages-collector>
     </session>
@@ -79,8 +79,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tagToTag.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+            <state relative-caret-position="188">
+              <caret line="34" column="12" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="12" />
               <folding>
                 <marker date="1539370895000" expanded="true" signature="35:38" ph="..." />
               </folding>
@@ -91,8 +91,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hmm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="56">
-              <caret line="144" column="3" selection-start-line="144" selection-start-column="3" selection-end-line="144" selection-end-column="3" />
+            <state relative-caret-position="270">
+              <caret line="157" column="3" lean-forward="true" selection-start-line="157" selection-start-column="3" selection-end-line="157" selection-end-column="3" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -101,8 +101,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/glove.6B.50d.txt">
-          <provider selected="true" editor-type-id="LargeFileEditor" />
+        <entry file="file://$PROJECT_DIR$/viterbi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -129,8 +133,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lexicalDictonary.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+            <state relative-caret-position="500">
+              <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -150,8 +154,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/memm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-613">
-              <caret line="379" column="44" lean-forward="true" selection-start-line="379" selection-start-column="44" selection-end-line="379" selection-end-column="44" />
+            <state relative-caret-position="252">
+              <caret line="312" column="44" lean-forward="true" selection-start-line="312" selection-start-column="44" selection-end-line="312" selection-end-column="44" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -172,14 +176,14 @@
     <findStrings>
       <find>append</find>
       <find>open</find>
-      <find>print</find>
       <find>hash</find>
       <find>tag</find>
       <find>index</find>
       <find>memm_l</find>
       <find>csv</find>
-      <find>test</find>
       <find>word is</find>
+      <find>test</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -189,19 +193,19 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/tagToTag.py" />
-        <option value="$PROJECT_DIR$/lexicalDictonary.py" />
         <option value="$PROJECT_DIR$/preprocessing.py" />
         <option value="$PROJECT_DIR$/wordEmbeddings.py" />
+        <option value="$PROJECT_DIR$/viterbi.py" />
+        <option value="$PROJECT_DIR$/lexicalDictonary.py" />
         <option value="$PROJECT_DIR$/hmm.py" />
-        <option value="$PROJECT_DIR$/memm.py" />
         <option value="$PROJECT_DIR$/p2.py" />
+        <option value="$PROJECT_DIR$/memm.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="44" />
     <option name="y" value="23" />
-    <option name="width" value="1396" />
+    <option name="width" value="795" />
     <option name="height" value="797" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -244,7 +248,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.wordEmbeddings">
+  <component name="RunManager" selected="Python.hmm">
     <configuration name="hmm" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Project2_fall2018" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -381,9 +385,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.hmm" />
         <item itemvalue="Python.wordEmbeddings" />
         <item itemvalue="Python.preprocessing" />
-        <item itemvalue="Python.hmm" />
       </list>
     </recent_temporary>
   </component>
@@ -404,13 +408,13 @@
     <frame x="0" y="23" width="1440" height="797" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18040873" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.033121917" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32907802" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.31205675" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32907802" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.47517732" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -449,6 +453,21 @@
           <line>245</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/hmm.py</url>
+          <line>86</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/hmm.py</url>
+          <line>71</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/hmm.py</url>
+          <line>49</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -470,16 +489,6 @@
     <entry file="file://$PROJECT_DIR$/glove.6B.50d.txt">
       <provider selected="true" editor-type-id="LargeFileEditor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/tagToTag.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
-          <folding>
-            <marker date="1539370895000" expanded="true" signature="35:38" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wordEmbeddings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -490,20 +499,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hmm.py">
+    <entry file="file://$PROJECT_DIR$/viterbi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="56">
-          <caret line="144" column="3" selection-start-line="144" selection-start-column="3" selection-end-line="144" selection-end-column="3" />
+        <state relative-caret-position="450">
+          <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tagToTag.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="34" column="12" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="12" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <marker date="1539370895000" expanded="true" signature="35:38" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lexicalDictonary.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+        <state relative-caret-position="500">
+          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -512,20 +528,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/p2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-521">
-          <caret line="35" column="16" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="16" />
+        <state relative-caret-position="347">
+          <caret line="314" lean-forward="true" selection-start-line="314" selection-end-line="314" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
-            <marker date="1540179589000" expanded="true" signature="808:921" ph="..." />
-            <marker date="1540179589000" expanded="true" signature="8804:8813" ph="..." />
+            <marker date="1540191823000" expanded="true" signature="808:921" ph="..." />
+            <marker date="1540191823000" expanded="true" signature="8240:8246" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hmm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="157" column="3" lean-forward="true" selection-start-line="157" selection-start-column="3" selection-end-line="157" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/memm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-613">
-          <caret line="379" column="44" lean-forward="true" selection-start-line="379" selection-start-column="44" selection-end-line="379" selection-end-column="44" />
+        <state relative-caret-position="252">
+          <caret line="312" column="44" lean-forward="true" selection-start-line="312" selection-start-column="44" selection-end-line="312" selection-end-column="44" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
