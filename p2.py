@@ -247,19 +247,6 @@ def hmm_unsmoothed_prediction(training, testing):
 
             #everything has correct information
 
-            # for i in range(len(text)):
-            #     if text[i] in hash:
-            #         if hash[text[i]] in B_TAG:
-            #             bio.append(hash[text[i]])
-            #         elif hash[text[i]] in I_TAG:
-            #             if len(bio) == 0 or bio[-1] == "O":
-            #                 bio.append("O")
-            #             elif bio[-1][2:] == hash[text[i]][2:] and i > 0: #if previous word is part of the entity
-            #                 bio.append(hash[text[i]])
-            #             else:
-            #                 bio.append("O")
-            #     else:
-            #         bio.append("O")
 
             for i in range(len(bio)):
                 if bio[i] != "O":
@@ -336,22 +323,24 @@ def hmm_unsmoothed_prediction(training, testing):
 
         # at the end of this for loop (on a single line) the index of any variable, should correspond to that same index for any other variable
 
-def main():
 
-    # if (os.path.isfile('/path/to/file')):
-    #     preprocessing("train.txt")
-
-    # hash = baseline("sample_test.txt")
-    hmm_unsmoothed_prediction("train.txt", "test.txt")
-
-    # print ("Kaggle Hash")
-    #
-    # print hash
-    #
-    # print ("--------------")
-    #
-    # max_array = hmm("training.txt", "test.txt")
-    # print convertArrayToBIOTags(max_array)
-
-
-main()
+# def main():
+#
+#     # if (os.path.isfile('/path/to/file')):
+#     #     preprocessing("train.txt")
+#
+#     # hash = baseline("sample_test.txt")
+#     #hmm_unsmoothed_prediction("train.txt", "test.txt")
+#
+#
+#     # print ("Kaggle Hash")
+#     #
+#     # print hash
+#     #
+#     # print ("--------------")
+#     #
+#     # max_array = hmm("training.txt", "test.txt")
+#     # print convertArrayToBIOTags(max_array)
+#
+#
+# main()

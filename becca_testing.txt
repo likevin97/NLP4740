@@ -1,0 +1,24 @@
+Johnson	,	who	played	eight	seasons	in	Baltimore	,	was	named	Orioles	manager	in	the	off-season	replacing	Phil	Regan	.
+NNP	,	WP	VBD	CD	NNS	IN	NNP	,	VBD	VBN	NNP	NN	IN	DT	NN	VBG	NNP	NNP	.
+B-PER	O	O	O	O	O	O	B-LOC	O	O	O	B-ORG	O	O	O	O	O	B-PER	I-PER	O
+He	led	the	Cincinnati	Reds	to	the	National	League	Championship	Series	last	year	and	guided	the	New	York	Mets	to	a	World	Series	championship	in	1986	.
+PRP	VBD	DT	NNP	NNP	TO	DT	NNP	NNP	NNP	NNP	JJ	NN	CC	VBD	DT	NNP	NNP	NNP	TO	DT	NNP	NNP	NN	IN	CD	.
+O	O	O	B-ORG	I-ORG	O	O	B-MISC	I-MISC	I-MISC	I-MISC	O	O	O	O	O	B-ORG	I-ORG	I-ORG	O	O	B-MISC	I-MISC	O	O	O	O
+Baltimore	has	won	16	of	its	last	22	games	to	pull	within	five	games	of	the	slumping	New	York	Yankees	in	the	American	League	East	Division	.
+NNP	VBZ	VBN	CD	IN	PRP$	JJ	CD	NNS	TO	VB	IN	CD	NNS	IN	DT	VBG	NNP	NNP	NNPS	IN	DT	NNP	NNP	NNP	NNP	.
+B-ORG	O	O	O	O	O	O	O	O	O	O	O	O	O	O	O	O	B-ORG	I-ORG	I-ORG	O	O	B-MISC	I-MISC	I-MISC	I-MISC	O
+BASEBALL	-	MAJOR	LEAGUE	STANDINGS	AFTER	WEDNESDAY	'S	GAMES	.
+NNP	:	NNP	NNP	NNP	NNP	NNP	POS	NNS	.
+O	O	B-MISC	I-MISC	O	O	O	O	O	O
+Major	League	Baseball
+NNP	NNP	NNP
+B-MISC	I-MISC	I-MISC
+standings	after	games	played	on	Wednesday	(	tabulate	under	won	,
+NNS	IN	NNS	VBN	IN	NNP	(	NN	IN	JJ	,
+O	O	O	O	O	O	O	O	O	O	O
+lost	,	winning	percentage	and	games	behind	)	:
+VBD	,	VBG	NN	CC	NNS	IN	)	:
+O	O	O	O	O	O	O	O	O
+AMERICAN	LEAGUE
+NNP	NNP
+B-MISC	I-MISC
