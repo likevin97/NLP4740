@@ -15,8 +15,6 @@ def lexical_dictonary(fname):
 	bio = []
 	counter = 0
 
-
-
 	for line in train:
 		if counter % 3 == 0:
 			tokens = line.split()
@@ -35,17 +33,42 @@ def lexical_dictonary(fname):
 
 	return lex_dict, seen
 
+
 def lexical_probabilities(lex_dict):
 	lex_prob = lex_dict
 
 	for key in lex_prob.keys(): #key is B-ORG
 		total = sum(lex_prob[key].values())
-		for k in lex_prob[key] : #key is a token
-			lex_prob[key][k] /= float(total) 
-
-
+		for t in lex_prob[key] : #key is a token
+			lex_prob[key][t] /= float(total)
 
 	return lex_prob
+
+
+def lexical_addk_probabilities(lex_dict, k):
+	lex_prob = lex_dict
+
+	for key in lex_prob.keys(): #key is B-ORG
+		total = sum(lex_prob[key].values())
+
+		sub_seen = set()
+
+		for t in lex_prob[key]:  # key is a token
+			sub_seen.add(t)
+
+		total += k * len(sub_seen)
+
+		for t in lex_prob[key]: #key is a token
+
+			lex_prob[key][t] += k
+
+			lex_prob[key][t] /= float(total)
+
+		lex_prob[key]["<UNK>"] = k / float(total)
+
+	return lex_prob
+
+
 
 # def main():
 	

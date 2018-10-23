@@ -133,6 +133,94 @@ def hmm(trainingfile, testfile):
 	return predictions
 
 
+
+def hmm_addk_initialize(start, line, seen_words, lex):
+	# LINE IS ALREADY SPLIT. IS AN ARRAY
+
+	score = [[0.0 for y in range(len(line))] for x in range(len(TAGS))]
+	backpointer = [[0 for y in range(len(line))] for x in range(len(TAGS))]
+	for i in range(len(TAGS)):
+		if line[0] not in seen_words:
+			score[i][0] = float(start[TAGS[i]]) * float(lex[TAGS[i]]["<UNK>"])
+		else:
+			score[i][0] = float(start[TAGS[i]]) * float(lex[TAGS[i]][line[0]])
+		# score[i][0] = float(lex[TAGS[i]][line[0]])
+		backpointer[i][0] = 0
+	return score, backpointer
+
+
+def hmm_addk_iteration(score, backpointer, line, transition, seen_words, lex):
+	for token in range(1, len(line)):  # index of 1 represents the 2nd word
+		for i in range(len(TAGS)):
+			max_score = 0.0
+			max_index = 0
+			for j in range(len(TAGS)):
+				s = score[j][token - 1] * transition[TAGS[j]][TAGS[i]]
+				if s > max_score:
+					max_score = s
+					max_index = j
+			if line[token] not in seen_words:
+				score[i][token] = max_score * lex[TAGS[i]]["<UNK>"]
+			else:
+				score[i][token] = max_score * lex[TAGS[i]][line[token]]
+			backpointer[i][token] = max_index
+	# score[TAGS[i]][token] = max_score * transition[]
+
+
+
+def hmm_addk_identify_sequence(score, backpointer, line):
+	max_array = []
+	max_index = 0
+	max_score = 0.0
+	for i in range(len(TAGS)):  # this is only for the last token (aka word n)
+		s = score[i][len(line) - 1]
+		if s > max_score:
+			max_score = s
+			max_index = i
+
+	max_array.insert(0, max_index)
+
+	for i in range(len(line) - 2, -1, -1):  # this will do all the other words
+		max_array.insert(0, backpointer[max_array[0]][i + 1])
+
+	return max_array
+
+
+def hmm_addk(trainingfile, testfile, k):
+	transition_dict = transition_counts(trainingfile)
+	transition_probs = transition_probabilities(transition_dict)
+	lex_dict, seen_words = lexical_dictonary(trainingfile)
+	lex_addk_prob_dict = lexical_addk_probabilities(lex_dict, k)
+
+	start_prob = startToTagDictionary(trainingfile)
+
+	test = open(testfile, "r")
+	tokens = []
+	pos = []
+	index = [] #index for testing, or correct bio for validation
+
+	predictions = []
+
+	counter = 0
+	for line in test:
+		if counter % 3 == 0:
+			tokens = line.split()
+		if counter % 3 == 1:
+			pos = line.split()
+		if counter %3 == 2:
+			index = line.split()
+
+			score, backpointer = hmm_addk_initialize(start_prob, tokens, seen_words, lex_addk_prob_dict)
+			hmm_addk_iteration(score, backpointer, tokens, transition_probs, seen_words, lex_addk_prob_dict)
+			max_array = hmm_addk_identify_sequence(score, backpointer, tokens)
+
+			predictions.append(max_array)
+
+		counter +=1
+
+	return predictions
+
+
 def convertArrayToBIOTags(array):
 	#new_array = [0 for i in range(len(array))]
 	new_array=[]
