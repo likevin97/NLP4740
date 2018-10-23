@@ -3,6 +3,7 @@ import string
 from string import whitespace
 import csv
 from hmm import *
+from memm import *
 
 B_TAG = ["B-PER", "B-LOC", "B-ORG", "B-MISC"]
 I_TAG = ["I-PER", "I-LOC", "I-ORG", "I-MISC"]
@@ -120,11 +121,11 @@ def baseline_prediction(training, testing):
     LOC = ""
     MISC = ""
 
-    print "Kaggle Hash"
-
-    print (kaggle)
-
-    print "-------------"
+    # print "Kaggle Hash"
+    #
+    # print (kaggle)
+    #
+    # print "-------------"
 
     for tag in kaggle:
         for index_ranges in kaggle[tag]:
@@ -242,11 +243,11 @@ def hmm_unsmoothed_prediction(training, testing):
     LOC = ""
     MISC = ""
 
-    print "Kaggle Hash"
-
-    print (kaggle)
-
-    print "-------------"
+    # print "Kaggle Hash"
+    #
+    # print (kaggle)
+    #
+    # print "-------------"
 
     for tag in kaggle:
         for index_ranges in kaggle[tag]:
@@ -372,6 +373,104 @@ def hmm_addk_prediction(training, testing, k):
             val += 1
 
         # at the end of this for loop (on a single line) the index of any variable, should correspond to that same index for any other variable
+
+
+def memm_prediction(training, testing):
+    w = wordtoBIO(training)
+
+    features, all_pos = training_function(training, w)
+
+    classifier = nltk.classify.MaxentClassifier.train(features, max_iter=5)
+
+    start_prob = startToTagDictionary(training)
+
+    transition_dict = transition_counts(training)
+    transition_probs = transition_probabilities(transition_dict)
+
+
+    greedy_predictions, memm_predictions = memm(classifier, testing, all_pos, start_prob, transition_probs, w)
+
+    test = open(testing, "r")
+
+    kaggle = initKaggleDict()
+
+    counter = 0
+
+    for line in test:
+
+        #greedy_bio = greedy_predictions[counter / 3]
+
+        memm_bio = memm_predictions[counter / 3]
+
+        if (counter % 3 == 0):
+            text = line.split()
+        elif (counter % 3 == 1):
+            pos = line.split()
+        else:
+            index = line.split()
+
+            # everything has correct information
+
+            for i in range(len(memm_bio)):
+                if memm_bio[i] != "O":
+                    if memm_bio[i] in B_TAG:
+                        kaggle[memm_bio[i][2:]].append(index[i])
+                    elif memm_bio[i] in I_TAG:
+                        if kaggle[memm_bio[i][2:]] == []:
+                            kaggle[memm_bio[i][2:]].append(index[i])
+                        else:
+                            kaggle[memm_bio[i][2:]][-1] += " " + str(index[i])
+
+        counter += 1
+
+    # allpredicitons = [ [] [] [] ]
+
+    ORG = ""
+    PER = ""
+    LOC = ""
+    MISC = ""
+
+    # print "Kaggle Hash"
+    #
+    # print (kaggle)
+    #
+    # print "-------------"
+
+    for tag in kaggle:
+        for index_ranges in kaggle[tag]:
+            index = index_ranges.split()
+            b_index = index[0]
+            e_index = index[-1]
+            if tag == "ORG":
+                ORG += " "
+                ORG += str(b_index) + "-" + str(e_index)
+            elif tag == "PER":
+                PER += " "
+                PER += str(b_index) + "-" + str(e_index)
+            elif tag == "LOC":
+                LOC += " "
+                LOC += str(b_index) + "-" + str(e_index)
+            elif tag == "MISC":
+                MISC += " "
+                MISC += str(b_index) + "-" + str(e_index)
+
+    print ("Type,Prediction")
+
+    results = [PER, LOC, ORG, MISC]
+
+    # print ("PER," + PER)
+    # print("LOC, " + LOC)
+    # print("ORG," + ORG)
+    # print("MISC," + MISC)
+
+    with open('memmViterbiKaggle.csv', "w") as csvFile:
+        writer = csv.writer(csvFile)
+        writer.writerow(['Type', 'Prediction'])
+        val = 0
+        temp = ["PER", "LOC", "ORG", "MISC"]
+        while val < 4:
+            writer.writerow((temp[val], results[val]))
+            val += 1
 
 
 def baseline_precision_recall(training, validation):
@@ -567,6 +666,78 @@ def hmm_addk_precision_recall(training, validation, k):
     print "----------------------"
 
 
+def memm_precision_recall(training, validation):
+    w = wordtoBIO(training)
+
+    features, all_pos = training_function(training, w)
+
+    classifier = nltk.classify.MaxentClassifier.train(features, max_iter=5)
+
+    start_prob = startToTagDictionary(training)
+
+    transition_dict = transition_counts(training)
+    transition_probs = transition_probabilities(transition_dict)
+
+    bio_arr_predictions, viterbi_test = memm(classifier, validation, all_pos, start_prob, transition_probs, w)
+
+    bio_arr_test = convertArrayToBIOTags(bio_arr_predictions)
+
+    valid = open(validation, "r")
+    text = []
+    answer_bio = []
+    counter = 0
+
+    kaggle = initKaggleDict()
+
+    precision = 0
+    recall = 0
+    pcorrect = 0
+    rcorrect = 0
+
+    # used for validation only
+    correct = 0
+
+    for line in valid:
+
+        bio = bio_arr_test[counter / 3]
+
+        if (counter % 3 == 0):
+            text = line.split()
+        elif (counter % 3 == 1):
+            pos = line.split()
+        else:
+            answer_bio = line.split()
+
+            # everything has correct information
+
+            for i in range(len(bio)):
+                if bio[i] != "O":
+                    if kaggle[bio[i][2:]] == []:
+                        kaggle[bio[i][2:]].append(answer_bio[i])
+                    else:
+                        kaggle[bio[i][2:]][-1] += " " + str(answer_bio[i])
+
+            for i in range(len(bio)):
+                if (bio[i] != "O"):
+                    precision += 1
+                    if bio[i] == answer_bio[i]:
+                        pcorrect += 1
+            for i in range(len(answer_bio)):
+                if (answer_bio[i] != "O"):
+                    recall += 1
+
+        counter += 1
+
+    # Precision/recall
+
+    print "MEMM Precision/Recall: "
+    precision_answ = float(pcorrect) / precision
+    print ("precision " + str(precision_answ))
+    recall_answ = float(pcorrect) / recall
+    print ("recall " + str(recall_answ))
+    print ("f-score " + str((2 * precision_answ * recall_answ)/ (precision_answ + recall_answ) ))
+    print "----------------------"
+
 
 def main():
 
@@ -588,7 +759,10 @@ def main():
     hmm_precision_recall("training.txt", "validation.txt")
     hmm_addk_precision_recall("training.txt", "validation.txt", 0.86)
 
-    # hmm_addk_prediction("training.txt", "test.txt", 0.5)
+    baseline_prediction("training.txt", "test.txt")
+    hmm_unsmoothed_prediction("training.txt", "test.txt")
+    hmm_addk_prediction("training.txt", "test.txt", 0.5)
+    memm_prediction("sample.txt", "sample_test.txt")
 
 
 main()

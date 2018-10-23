@@ -5,7 +5,6 @@ import os
 import string
 from string import whitespace
 import csv
-from p2 import *
 from viterbi import *
 from hmm import *
 from lexicalDictonary import *
@@ -15,6 +14,9 @@ from wordToBio import *
 
 TAGS = ["O", "B-PER", "B-LOC", "B-ORG", "B-MISC", "I-PER", "I-LOC", "I-ORG", "I-MISC"]
 
+B_TAG = ["B-PER", "B-LOC", "B-ORG", "B-MISC"]
+I_TAG = ["I-PER", "I-LOC", "I-ORG", "I-MISC"]
+
 NOUN = ["NN", "NNS", "NNP", "NNPS"]
 ADJ = ["JJ", "JJR", "JJS"]
 ADV = ["RB", "RBR", "RBS", "RP"]
@@ -22,58 +24,13 @@ VERB = ["MD", "VB", "VBD","VBG", "VBN", "VBP","VBZ"]
 WH = ["WDT","WP", "WP$", "WRB"]
 PUNC = [".", ",", ":", "(", ")", "\"", "\'"]
 
-#
-# def baseline_train(filename):
-#     hash = defaultdict(lambda: defaultdict(int))
-#
-#     train = open(filename, "r")
-#     counter = 0
-#     text = []
-#     pos = []
-#     bio = []
-#     for line in train:
-#         if (counter % 3 == 0):
-#             text = line.split()
-#         elif (counter % 3 == 1):
-#             pos = line.split()
-#         else:
-#             bio = line.split()
-#
-#             for i in range(len(text)):
-#                 hash[text[i]]["counter"] +=1
-#                 hash[text[i]][bio[i]] += 1
-#         counter += 1
-#     #print (hash["American"])
-#     return hash
-# def testing(hash, test_file):
-#     test = open(test_file, "r")
-#     tokens = []
-#     index = []
-#     pos = []
-#     counter = 0
-#     # used for validation only
-#     correct = 0
-#     all_predictions = []
-#
-#     for line in test:
-#         predictions = []
-#
-#         if (counter % 3 == 0):
-#             tokens = line.split()
-#             # print ("tokens: " + "".join(tokens))
-#         elif (counter % 3 == 1):
-#             pos = line.split()
-#         else:
-#             index = line.split()
-#
-#             for i in range(len(tokens)):
-#                 print (tokens[i])
-#                 if tokens[i] in hash:
-#                     print ("in hash")
-#                     maxcounter = 0
-#                     maxtag = ""
-#                     for key in hash[tokens[i]]:
-#                         print ("key: " + key)
+
+def initKaggleDict():
+    dict = {}
+    tags = ["PER", "ORG", "LOC", "MISC"]
+    for t in tags:
+        dict[t] = []
+    return dict
 
 def training_function(ftraining, w):
 
@@ -389,83 +346,83 @@ def memm_prediction(training, testing):
             val += 1
 
 
-def main():
-    # hash = baseline_train("sample.txt")
-    # # testing(hash, "sample.txt")
-    # transition_dict = transition_counts("training.txt")
-    # transition_probs = transition_probabilities(transition_dict)
-    # #lex_dict, a = lexical_dictonary("sample.txt")
-    # w = wordtoBIO("training.txt")
-    # #print (lex_dict)
-    # #print (lex_dict['I-LOC']['Albans'])
-    # #print (lex_dict.keys())
-    #
-    # start_prob = startToTagDictionary("training.txt")
-
-    #features, all_pos = training_function("training.txt", w)
-    #classifier = nltk.classify.MaxentClassifier.train(features, max_iter=5)
-    # test1 = {'PRP$': 0, 'I-LOC': 0, 'I-MISC': 0, 'DT': 0, 'POS': 0, 'I-PER': 1, 'TO': 0, 'PRP': 0, 'B-PER': 0, 'CC': 0, 'PDT': 0, 'O': 0, 'caps': 1, 'IN': 0, 'prevCaps': 1, 'CD': 0, 'noun': 1, 'B-ORG': 0, 'UH': 0, 'B-MISC': 0, 'I-ORG': 0, 'B-LOC': 0}
-    # probs = classifier.prob_classify(test1)
-    # maxscore = 0
-    # best_tag = ""
-    # for tag in TAGS:
-    #     score = probs.prob(tag)
-    #     print (tag + ": " + str(score))
-    #     if score > maxscore:
-    #         maxscore = score
-    #         best_tag = tag
-    # print(best_tag)
-
-    # greedy_predictions, memm_predictions = memm(classifier, "validation.txt", all_pos, start_prob, transition_probs, w)
-    # print(greedy_predictions)
-    # print ("========")
-    # print (convertArrayToBIOTags(memm_predictions))
-
-
-    memm_prediction("training.txt", "test.txt")
-
-
-    #
-    # v = open('validation.txt', "r")
-    # counter = 0
-    # correct = []
-    # c_tags = []
-    # for l in v:
-    #     if counter %3 == 2:
-    #         c_tags = l.split()
-    #         correct.append(c_tags)
-    #     counter +=1
-    #
-    # recall = 0
-    # rc = 0
-    # rwrong = 0
-    # for i in range(len(correct)):
-    #     for j in range(len(correct[i])):
-    #         if (correct[i][j] != "0"):
-    #             recall += 1
-    #             if (correct[i][j] == greedy_predictions[i][j]):
-    #                 rc += 1
-    #             else:
-    #                 rwrong += 1
-    #
-    # precision = 0
-    # pc = 0
-    # pwrong = 0
-    # for i in range(len(greedy_predictions)):
-    #     for j in range(len(greedy_predictions[i])):
-    #         if (greedy_predictions[i][j] != "0"):
-    #             precision += 1
-    #             if (correct[i][j] == greedy_predictions[i][j]):
-    #                 pc += 1
-    #             else:
-    #                 pwrong += 1
-    # print ("")
-    # print ("")
-    # print ("")
-    # print ("Correct Recall: " + str(float(rc) / recall))
-    # print ("Incorrect Recall: " + str(float(rwrong) / recall))
-    # print ("Correct Precision: " + str(float(pc) / precision))
-    # print ("Incorrect Precision: " + str(float(pwrong) / precision))
-
-
-main()
+# def main():
+#     # hash = baseline_train("sample.txt")
+#     # # testing(hash, "sample.txt")
+#     # transition_dict = transition_counts("training.txt")
+#     # transition_probs = transition_probabilities(transition_dict)
+#     # #lex_dict, a = lexical_dictonary("sample.txt")
+#     # w = wordtoBIO("training.txt")
+#     # #print (lex_dict)
+#     # #print (lex_dict['I-LOC']['Albans'])
+#     # #print (lex_dict.keys())
+#     #
+#     # start_prob = startToTagDictionary("training.txt")
+#
+#     #features, all_pos = training_function("training.txt", w)
+#     #classifier = nltk.classify.MaxentClassifier.train(features, max_iter=5)
+#     # test1 = {'PRP$': 0, 'I-LOC': 0, 'I-MISC': 0, 'DT': 0, 'POS': 0, 'I-PER': 1, 'TO': 0, 'PRP': 0, 'B-PER': 0, 'CC': 0, 'PDT': 0, 'O': 0, 'caps': 1, 'IN': 0, 'prevCaps': 1, 'CD': 0, 'noun': 1, 'B-ORG': 0, 'UH': 0, 'B-MISC': 0, 'I-ORG': 0, 'B-LOC': 0}
+#     # probs = classifier.prob_classify(test1)
+#     # maxscore = 0
+#     # best_tag = ""
+#     # for tag in TAGS:
+#     #     score = probs.prob(tag)
+#     #     print (tag + ": " + str(score))
+#     #     if score > maxscore:
+#     #         maxscore = score
+#     #         best_tag = tag
+#     # print(best_tag)
+#
+#     # greedy_predictions, memm_predictions = memm(classifier, "validation.txt", all_pos, start_prob, transition_probs, w)
+#     # print(greedy_predictions)
+#     # print ("========")
+#     # print (convertArrayToBIOTags(memm_predictions))
+#
+#
+#     memm_prediction("training.txt", "test.txt")
+#
+#
+#     #
+#     # v = open('validation.txt', "r")
+#     # counter = 0
+#     # correct = []
+#     # c_tags = []
+#     # for l in v:
+#     #     if counter %3 == 2:
+#     #         c_tags = l.split()
+#     #         correct.append(c_tags)
+#     #     counter +=1
+#     #
+#     # recall = 0
+#     # rc = 0
+#     # rwrong = 0
+#     # for i in range(len(correct)):
+#     #     for j in range(len(correct[i])):
+#     #         if (correct[i][j] != "0"):
+#     #             recall += 1
+#     #             if (correct[i][j] == greedy_predictions[i][j]):
+#     #                 rc += 1
+#     #             else:
+#     #                 rwrong += 1
+#     #
+#     # precision = 0
+#     # pc = 0
+#     # pwrong = 0
+#     # for i in range(len(greedy_predictions)):
+#     #     for j in range(len(greedy_predictions[i])):
+#     #         if (greedy_predictions[i][j] != "0"):
+#     #             precision += 1
+#     #             if (correct[i][j] == greedy_predictions[i][j]):
+#     #                 pc += 1
+#     #             else:
+#     #                 pwrong += 1
+#     # print ("")
+#     # print ("")
+#     # print ("")
+#     # print ("Correct Recall: " + str(float(rc) / recall))
+#     # print ("Incorrect Recall: " + str(float(rwrong) / recall))
+#     # print ("Correct Precision: " + str(float(pc) / precision))
+#     # print ("Incorrect Precision: " + str(float(pwrong) / precision))
+#
+#
+# main()
